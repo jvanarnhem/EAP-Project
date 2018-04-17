@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>EAP Form</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  </head>
+  <body>
+    <div class="container">
+      <form class="main" id="formValidate" novalidate="novalidate">
+        <div id="forminner">
+          
+          <div class="card-panel #ffc400 amber accent-3 row" align="center" style="margin-bottom: 0px;"> 
+            <div class="col s12"> 
+              <a href="forms.html">
+                <img class="responsive-img" src="http://ofhsmath.com/online_forms/images/ProfDevCom3.png" alt="school banner">
+              </a> 
+            </div>     
+          </div>
+          
+          <div class="row" style="margin-bottom: 0px;">
+            <div class="col s12">
+              <p class="center-align">Fill up all fields.</p>
+            </div>
+          </div>
+          
+          <div class="row" style="margin-bottom: 0px;">
+            <div class="input-field col s12 m6">
+              <input id="firstName" type="text" name="firstName" class="validate">
+              <label for="firstName" required="required" aria-required="true">First Name</label>
+            </div>
+            <div class="input-field col s12 m6">
+              <input id="lastName" type="text" name="lastName" class="validate">
+              <label for="lastName" required="required" aria-required="true">Last Name</label>
+            </div>
+          </div>
+          
+          <div class="row" style="margin-bottom: 0px;">
+            <div class="input-field col s12">
+              <input id="email" type="email" name="email" class="validate">
+              <label for="email" required="required" aria-required="true">District Email</label>
+            </div>
+          </div>
+          
+          <div class="row" style="margin-bottom: 0px;">
+            <div class="input-field col s4">
+              <input type="text" id="dateOfActivity" name="dateOfActivity" class="datepicker validate">
+              <label for="dateOfActivity" required="required" aria-required="true">Date of Activity</label>
+            </div>
+          </div>
+          <div class="row" style="margin-bottom: 0px;">
+            <div class="input-field col s6">
+              <select id="building" name="building" class="validate">
+                <option value="" disabled selected> -- select an option -- </option>
+                <option value="High School" >High School</option>
+                <option value="Middle School" >Middle School</option>
+                <option value="Intermediate School" >Intermediate School</option>
+                <option value="Falls-Lenox" >Falls-Lenox</option>
+                <option value="Early Childhood Center" >Early Childhood Center</option>
+                <option value="District" >District</option>
+              </select>
+              <label for="building"  required="required" aria-required="true">Home Building</label>
+            </div>
+          </div>
+          
+          <div class="row" style="margin-bottom: 0px;">
+            <div class="input-field col s12">
+              <textarea id="activity" name="activity" class="materialize-textarea validate" required="" aria-required="true"></textarea>
+              <label for="activity">Please the name and a brief description of your equivalent activity.</label>
+            </div>
+          </div>
+          
+          <div class="row" style="margin-bottom: 0px;">
+            <div class="input-field col s6">
+              <select id="category" name="category">
+                <option disabled selected value=""> -- select an option -- </option>
+                <option value="Conference/Workshop" >Conference/Workshop</option>
+                <option value="Cooperating Teacher" >Cooperating Teacher</option>
+                <option value="Curriculum Development" >Curriculum Development</option>
+                <option value="Grant Writing" >Grant Writing</option>
+                <option value="Master Teacher/National Board Certification" >Master Teacher/National Board Certification</option>
+                <option value="Professional Committee/Organization" >Professional Committee/Organization</option>
+                <option value="Professional Presentation" >Professional Presentation</option>
+                <option value="Publication of Original Work" >Publication of Original Work</option>
+                <option value="Teaching College Course/Adult Vocational or Technical Course" >Teaching College Course/Adult Vocational or Technical Course</option>
+                <option value="Other" >Other</option>
+              </select>
+              <label for="category">OFPDC Supported Activity Category</label>
+            </div>
+          </div>
+          
+          <div class="row" style="margin-bottom: 0px;">
+            <div class="input-field col s6 m3">
+              <input id="hours" type="number" name="hours" class="validate" required="" aria-required="true">
+              <label for="hours">Hours completed</label>
+            </div>
+          </div>
+          
+          <div class="row" style="margin-bottom: 0px;">
+            <label for="myFiles" style="padding-left: 11px;">Upload Documentation</label>
+            <div class = "file-field input-field col s12">
+              <div class = "btn">
+                <span>Browse</span>
+                <input name="myFiles" id="myFiles" type = "file" multiple />
+              </div>
+              <div class = "file-path-wrapper">
+                <input class = "file-path validate" type = "text" placeholder = "Upload multiple files" />
+              </div>
+            </div>
+          </div>
+          
+          <div id="output"></div>
+          
+          <div class="row" style="margin-bottom: 0px;">
+            <div class="input-field col s12 center-align">
+              <!-- onclick="submitForm(); return false;" -->
+              <button class="waves-effect waves-light btn submit-btn" id="btnSubmit" type="submit">Submit
+                <i class="material-icons right">send</i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
+
+    <script>
+      var rootFolderId = '1KhV5aExBVphGaWrSCw9rreDBv4ZYgGXw';
+      var numUploads = {};
+      numUploads.done = 0;
+      numUploads.total = 0;
+
+// Upload the files into a folder in drive
+      // This is set to send them all to one folder (specificed in the .gs file)
+      function uploadFiles() {
+        var allFiles = document.getElementById('myFiles').files;
+		var lName = document.getElementById('lastName').value;
+		if (!lName) {
+          window.alert('Missing applicant name!');
+		}		
+		var folderName = lName + ' EAP Verification';
+        
+		if (allFiles.length == 0) {
+		  window.alert('No file selected!');
+		} else {
+		  numUploads.total = allFiles.length;
+		  google.script.run.withSuccessHandler(function(r) {
+            // send files after the folder is created...
+			for (var i = 0; i < allFiles.length; i++) {
+			  // Send each file at a time
+			  uploadFile(allFiles[i], r.folderId);
+			}
+          }).createFolder(rootFolderId, folderName);
+        }
+      }
+      function uploadFile(file, folderId) {
+        var reader = new FileReader();
+		reader.onload = function(e) {
+		  var content = reader.result;
+		  document.getElementById('output').innerHTML = 'uploading ' + file.name + '...';			
+		  google.script.run.withSuccessHandler(onFileUploaded)
+		    .uploadFile(content, file.name, folderId);
+		}
+		reader.readAsDataURL(file);
+      }
+      function onFileUploaded(r) {
+        numUploads.done++;
+		document.getElementById('output').innerHTML = 'uploaded '
+		  + r.fileName + ' (' + numUploads.done + '/'
+		  + numUploads.total + ' files).';
+		if (numUploads.done == numUploads.total) {
+		  document.getElementById('output').innerHTML = 'All of the '
+            + numUploads.total + ' files are uploaded';
+		  numUploads.done = 0;
+		}
+      }
+      
+      function submitForm(e) {
+        e.preventDefault();
+        var path = uploadFiles();
+        const form = document.getElementsByClassName('main')[0];
+        const data = formToJSON(form.elements, path);
+        console.log(data);
+      
+        var dataToSend = JSON.stringify(data, null, "  ");
+        google.script.run
+          .withSuccessHandler (onSuccess)
+          .withFailureHandler (onFailure)
+          .withUserObject(this)
+          .submitReport(dataToSend);
+      }
+      function onSuccess() {
+        var div = document.getElementById('output');
+        div.innerHTML = 'THANK YOU!!!';
+      }
+      function onFailure() {
+        var div = document.getElementById('output');
+        div.innerHTML = 'Something went wrong!';
+      }
+      const formToJSON = (elements, foldPath) => [].reduce.call(elements, (data, element) => {
+        // Make sure the element has the required properties.
+        if (isValidElement(element) && isValidValue(element)) {
+          /*
+           * Some fields allow for more than one value, so we need to check if this
+           * is one of those fields and, if so, store the values as an array.
+          */
+          if (isCheckbox(element)) {
+            data[element.name] = (data[element.name] || []).concat(element.value);
+          } else {
+            data[element.name] = element.value;
+          }
+        }
+        return data;
+      }, {});
+      const isValidElement = element => {
+        if (element.type === 'file')
+          return false;
+        return element.name;
+      };
+      const isValidValue = element => {
+        return (!['checkbox', 'radio'].includes(element.type) || element.checked);
+      };
+      const isCheckbox = element => element.type === 'checkbox';
+      const isMultiSelect = element => element.options && element.multiple;
+      
+      $(document).ready(function() {
+        Materialize.updateTextFields();
+        $('.datepicker').pickadate({
+          selectMonths: true, // Creates a dropdown to control month
+          selectYears: 2, // Creates a dropdown of 15 years to control year,
+          today: 'Today',
+          clear: 'Clear',
+          close: 'Ok',
+          closeOnSelect: true, // Close upon selecting a date,
+          container: undefined, // ex. 'body' will append picker to body
+          format: 'mm-dd-yyyy',
+        });
+        $('select').material_select();
+        //$('#btnSubmit').click(submitForm);
+        $("#formValidate").validate({
+          errorClass: 'invalid',
+          errorPlacement: function (error, element) {
+            $(element)
+              .closest("form")
+              .find("label[for='" + element.attr("id") + "']")
+              .attr('data-error', error.text());
+          },
+          rules: {
+            firstName: "required",
+            lastName: "required",
+            email: {
+              required: true,
+              email: true
+            },
+            dateOfActivity: "required",
+            building: "required"
+          },
+          messages: {
+            firstName: "Please enter your first name.",
+            lastName: "Please enter your last name",
+            email: {
+              required: "Please enter a valid email address.",
+              email: "Your email address must be in the format of name@ofcs.net"
+            },
+            dateOfActivity: "Please choose a date.",
+            building: "Please choose your home building."
+          }
+        });
+      });
+    </script>
+    <style>
+      div.error {
+        color: red;
+        margin-top: -15px;
+        padding: 0;
+        font-size: 0.9em;
+      }
+    </style>
+  </body>
+</html>
